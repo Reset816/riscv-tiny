@@ -4,7 +4,7 @@ import chisel3.util.switch
 import chisel3._
 import chisel3.util.is
 
-class ALU extends RawModule {
+class ALU extends Module {
   val io = IO(new Bundle {
     val op = Input(UInt(4.W)) // op from ALU control
     val in0 = Input(UInt(32.W))

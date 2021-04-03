@@ -8,6 +8,6 @@ object testMain extends App {
   (new chisel3.stage.ChiselStage).execute(
     Array("-X", "verilog", "--full-stacktrace"),
     Seq(ChiselGeneratorAnnotation(() => new AND()),
-      TargetDirAnnotation("generated/and"))
+      TargetDirAnnotation("generated/AND"))
   )
 }
