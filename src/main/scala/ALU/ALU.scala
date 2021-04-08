@@ -76,9 +76,11 @@ class ALU extends Module {
 
   switch(io.op) {
     is("b0000".U) { // ADD
+      //io.out := (io.in0.asSInt() + io.in1.asSInt()).asUInt()
       io.out := io.in0 + io.in1
     }
     is("b0001".U) { // SUB
+      //io.out := (io.in0.asSInt() - io.in1.asSInt()).asUInt()
       io.out := io.in0 - io.in1
     }
     is("b0010".U) { // AND
@@ -100,30 +102,36 @@ class ALU extends Module {
       io.out := io.in0 >> shift
     }
     is("b1000".U) { // SLT
-      io.flag := io.in0.asSInt() < io.in1.asSInt()
-      if (io.flag == true.B) {
-        io.out := 1.U(32.W)
-      } else {
-        io.out := 0.U(32.W)
+//      io.flag := io.in0.asSInt() < io.in1.asSInt()
+//      if (io.flag == true.B) {
+//        io.out := 1.U(32.W)
+//      } else {
+//        io.out := 0.U(32.W)
+//      }
+      switch(io.in0.asSInt() < io.in1.asSInt()){
+        is(true.B){
+          io.out := 1.U(32.W)
+        }
+        is(false.B){
+          io.out := 0.U(32.W)
+        }
       }
     }
     is("b1001".U) { // SLTU
-      io.flag := io.in0 < io.in1
-      if (io.flag == true.B) {
-        io.out := 1.U(32.W)
-      } else {
-        io.out := 0.U(32.W)
+      switch(io.in0 < io.in1){
+        is(true.B){
+          io.out := 1.U(32.W)
+        }
+        is(false.B){
+          io.out := 0.U(32.W)
+        }
       }
     }
     is("b1010".U) { // BEQ
-      if (io.in0 == io.in1) {
-        io.flag := true.B
-      }
+      io.flag := io.in0 === io.in1
     }
     is("b1011".U) { // BNE
-      if (io.in0 != io.in1) {
-        io.flag := true.B
-      }
+      io.flag := io.in0 =/= io.in1
     }
     is("b1100".U) { // BLT
       io.flag := io.in0.asSInt() < io.in1.asSInt()
