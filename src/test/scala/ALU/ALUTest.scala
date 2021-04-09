@@ -28,7 +28,7 @@ class ALUTest(c: ALU) extends PeekPokeTester(c) {
   peek(c.io.out)
   //expect(c.io.out, -1)
   expect(c.io.out, 4294967295L)
-  //expect(c.io.out, -1.S(32.W).asUInt())
+  //expect(c.io.out, -1.S(32.W).asUInt().toInt)
 
   step(1)
   println("\nSUB")
@@ -77,6 +77,14 @@ class ALUTest(c: ALU) extends PeekPokeTester(c) {
   poke(c.io.in1, 2)
   peek(c.io.out)
   expect(c.io.out, 40) // 1010 < 2 = 101000
+
+  step(1)
+  println("\nSLL")
+  poke(c.io.op, 5)
+  poke(c.io.in0, 1)
+  poke(c.io.in1, 32)
+  peek(c.io.out)
+  expect(c.io.out, 0) // 1 < 32 = 0
 
   step(1)
   println("\nSRA")

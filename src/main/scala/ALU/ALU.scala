@@ -9,70 +9,14 @@ class ALU extends Module {
     val op = Input(UInt(4.W)) // op from ALU control
     val in0 = Input(UInt(32.W))
     val in1 = Input(UInt(32.W))
-    //val in2 = Input(UInt(32.W)) // rd
     var out = Output(UInt(32.W))
     var flag = Output(Bool())
   })
-  //  def opmatch() = {
-  //    io.out = io.op.to match {
-  //      //case 1.U(4.W) => io.in0 + io.in1 //ADD
-  //      case UInt(1,4) => io.in0 + io.in1 //ADD
-  ////      case  => io.in0 - io.in1 //SUB
-  ////      case 3 => "many"
-  //    }
-  //  }
-  //  def opma(x:Uint) =x match{
-  //    case 1.U => 1
-  //  }
 
-  //  switch(io.op) {
-  //    is (0.U(4.W)) {io.out := io.in0 + io.in1} //ADD
-  //    is (1.U(4.W)) {io.out := io.in0 - io.in1} //SUB
-  //  }
   io.out := 0.U
   io.flag := false.B
 
-
-  //  def ShiftRight(mod: Boolean): Any = {
-  //    var shift = io.in0.asUInt().do_%("32".U) // %=
-  //    if (shift == "0".U)
-  //      return Unit
-  //
-  //    io.out := io.in0
-  //    if (mod) { // 逻辑右移
-  //      io.out >> 1
-  //      io.out(31) := false.B // 最高位置0
-  //    }
-  //
-  //
-  //    if (shift.do_>=("20".U).litToBoolean) {
-  //      shift.do_-("20".U) // -=
-  //      io.out >> 20
-  //    }
-  //    io.out >> shift
-  //
-  //  }
-  def ShiftLift(mod: Boolean): Any = {
-    var shift = io.in0.asUInt().do_%("32".U) // %=
-    if (shift == "0".U)
-      return Unit
-
-    io.out := io.in0
-    if (mod) { // 逻辑右移
-      io.out >> 1
-      io.out(31) := false.B // 最高位置0
-    }
-
-
-    if (shift.do_>=("20".U).litToBoolean) {
-      shift.do_-("20".U) // -=
-      io.out >> 20
-    }
-    io.out >> shift
-
-  }
-
-  val shift: UInt = io.in1(4, 0).asUInt()
+  val shift: UInt = io.in1(5, 0).asUInt()
 
   switch(io.op) {
     is("b0000".U) { // ADD
@@ -102,27 +46,21 @@ class ALU extends Module {
       io.out := io.in0 >> shift
     }
     is("b1000".U) { // SLT
-//      io.flag := io.in0.asSInt() < io.in1.asSInt()
-//      if (io.flag == true.B) {
-//        io.out := 1.U(32.W)
-//      } else {
-//        io.out := 0.U(32.W)
-//      }
-      switch(io.in0.asSInt() < io.in1.asSInt()){
-        is(true.B){
+      switch(io.in0.asSInt() < io.in1.asSInt()) {
+        is(true.B) {
           io.out := 1.U(32.W)
         }
-        is(false.B){
+        is(false.B) {
           io.out := 0.U(32.W)
         }
       }
     }
     is("b1001".U) { // SLTU
-      switch(io.in0 < io.in1){
-        is(true.B){
+      switch(io.in0 < io.in1) {
+        is(true.B) {
           io.out := 1.U(32.W)
         }
-        is(false.B){
+        is(false.B) {
           io.out := 0.U(32.W)
         }
       }

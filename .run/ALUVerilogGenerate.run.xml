@@ -1,11 +1,11 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="ALUTest" type="SbtRunConfiguration" factoryName="sbt Task" show_console_on_std_err="false" show_console_on_std_out="false">
+  <configuration default="false" name="ALU Verilog Generate" type="SbtRunConfiguration" factoryName="sbt Task" show_console_on_std_err="false" show_console_on_std_out="false">
     <option name="allowRunningInParallel" value="false" />
     <option name="projectPathOnTarget" />
     <option name="selectedOptions">
       <list />
     </option>
-    <option name="tasks" value="clean &quot;test:runMain ALU.RunALUTest -td ./generated/ALUTest --is-verbose&quot;" />
+    <option name="tasks" value="clean &quot;test:runMain ALU.testALU&quot;" />
     <option name="useSbtShell" value="true" />
     <option name="vmparams" value="-Xms512M -Xmx1024M -Xss1M -XX:+CMSClassUnloadingEnabled" />
     <option name="workingDir" value="$PROJECT_DIR$" />
