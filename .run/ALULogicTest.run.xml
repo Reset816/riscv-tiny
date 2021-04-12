@@ -5,7 +5,7 @@
     <option name="selectedOptions">
       <list />
     </option>
-    <option name="tasks" value="clean &quot;test:runMain ALU.RunALUTest -td ./generated/ALUTest --is-verbose&quot;" />
+    <option name="tasks" value="clean &quot;test:runMain ALU.RunALUTest -td ./generated/ALUTest --is-verbose --generate-vcd-output on&quot;" />
     <option name="useSbtShell" value="true" />
     <option name="vmparams" value="-Xms512M -Xmx1024M -Xss1M -XX:+CMSClassUnloadingEnabled" />
     <option name="workingDir" value="$PROJECT_DIR$" />
